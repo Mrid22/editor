@@ -8,3 +8,11 @@ export interface ProjectRow {
 export interface ProjectCollection {
   projects: ProjectRow[]
 }
+
+// Action types for the project table actions column
+export type ProjectAction = "open-in" | "delete" | "share"
+
+export interface ActionCellProps {
+  projectId: string
+  onAction: (action: ProjectAction, projectId: string) => void
+}
