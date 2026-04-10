@@ -100,7 +100,8 @@
 ### Quality & Experience Requirements
 
 - **QR-001**: The feature MUST preserve established shared UI patterns, copy tone,
-  accessibility behavior, and error-state handling unless an explicit exception is approved.
+  accessibility behavior, and error-state handling unless an explicit exception is approved,
+  and it MUST state whether behavior is desktop-only or includes mobile interactions.
 - **QR-002**: The feature MUST define the automated tests required to prove the changed
   behavior and identify any manual verification needed for critical user-facing flows.
 - **QR-003**: The feature MUST state measurable performance expectations for affected flows,
@@ -127,7 +128,7 @@
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
 - **SC-005**: [Quality metric, e.g., "All affected automated tests pass and new regression coverage exists for the changed behavior"]
-- **SC-006**: [UX/performance metric, e.g., "Primary interaction completes within 100 ms p95 and matches shared UI behavior on desktop and narrow layouts"]
+- **SC-006**: [UX/performance metric, e.g., "Primary interaction completes within 100 ms p95 and matches shared UI behavior across supported desktop window sizes"]
 
 ## Assumptions
 

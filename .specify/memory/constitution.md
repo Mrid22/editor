@@ -1,16 +1,10 @@
 <!--
 Sync Impact Report
-Version change: template -> 1.0.0
+Version change: 1.0.0 -> 1.0.1
 Modified principles:
-- Template Principle 1 -> I. Code Quality Is Mandatory
-- Template Principle 2 -> II. Readability Over Cleverness
-- Template Principle 3 -> III. Modular Boundaries First
-- Template Principle 4 -> IV. Tests Prove Behavior
-- Template Principle 5 -> V. UX Consistency Is a Feature
-- Added principle -> VI. Performance Budgets Are Requirements
+- V. UX Consistency Is a Feature (expanded to define desktop-only responsive scope by default)
 Added sections:
-- Engineering Standards
-- Delivery Workflow
+- None
 Removed sections:
 - None
 Templates requiring updates:
@@ -60,7 +54,10 @@ User-facing changes MUST preserve shared interaction patterns, visual language, 
 keyboard behavior, loading states, and error handling across the application. Existing UI
 primitives and design tokens MUST be reused unless a deliberate exception is documented.
 Accessibility states, empty states, and failure states MUST be designed with the same care
-as the happy path. Rationale: consistency is part of product quality, not polish.
+as the happy path. Responsive behavior MUST target supported desktop window sizes only;
+mobile touch interactions and phone/tablet aspect-ratio behavior are out of scope unless a
+feature specification explicitly includes them. Rationale: consistency is part of product
+quality, not polish.
 
 ### VI. Performance Budgets Are Requirements
 Changes MUST define and respect measurable performance expectations for the affected flow,
@@ -76,6 +73,8 @@ core quality attribute for an editor experience.
 	unvalidated data across layers.
 - Shared UI work MUST build on the established component primitives in `src/components/ui/`
 	and existing app-level patterns before introducing new abstractions.
+- UX acceptance criteria MUST define supported desktop viewport ranges and MUST NOT imply
+	mobile interaction support unless that scope is explicitly approved in the specification.
 - Complicated changes MUST include concise comments at the point of complexity so future
 	maintainers can understand the constraint or tradeoff quickly.
 - Feature plans MUST state the intended test coverage, UX impact, and performance budget
@@ -113,4 +112,4 @@ Compliance review is mandatory at plan time, at review time, and whenever a rele
 feature changes architecture, UX patterns, or performance characteristics. Any unresolved
 violation MUST be tracked explicitly in planning artifacts until removed.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-10 | **Last Amended**: 2026-04-10
+**Version**: 1.0.1 | **Ratified**: 2026-04-10 | **Last Amended**: 2026-04-10

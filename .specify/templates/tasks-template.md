@@ -87,7 +87,8 @@ Examples of foundational tasks (adjust based on your project):
 
 - [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
-- [ ] T011a [US1] Document manual UX validation for [user journey] including accessibility and error states
+- [ ] T011a [US1] Document manual UX validation for [user journey] including accessibility,
+  error states, and supported desktop window sizes
 
 ### Implementation for User Story 1
 
@@ -113,7 +114,8 @@ Examples of foundational tasks (adjust based on your project):
 
 - [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
-- [ ] T019a [US2] Document manual UX validation for [user journey] including accessibility and error states
+- [ ] T019a [US2] Document manual UX validation for [user journey] including accessibility,
+  error states, and supported desktop window sizes
 
 ### Implementation for User Story 2
 
@@ -137,7 +139,8 @@ Examples of foundational tasks (adjust based on your project):
 
 - [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
-- [ ] T025a [US3] Document manual UX validation for [user journey] including accessibility and error states
+- [ ] T025a [US3] Document manual UX validation for [user journey] including accessibility,
+  error states, and supported desktop window sizes
 
 ### Implementation for User Story 3
 
