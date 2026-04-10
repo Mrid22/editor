@@ -2,6 +2,9 @@ import { describe, it, expect, vi } from "vitest"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { useState } from "react"
 import { EmptyState } from "@/components/empty-state"
+import { ProjectTable } from "@/components/project-table"
+import { createProjectEntryActions } from "@/lib/project-entry-actions"
+import { testProjectRows } from "../fixtures/project-table-dummy-data"
 
 // Mock DataTable component for testing
 vi.mock("@/components/data-table", () => ({
@@ -239,5 +242,58 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
       fireEvent.click(screen.getByTestId("clear-projects-btn"))
       expect(screen.getByText("No projects yet")).toBeVisible()
     })
+  })
+})
+
+describe("Shared entry action handler parity", () => {
+  function SharedActionParityHarness({
+    onCreateProject,
+    onImportProject,
+  }: {
+    onCreateProject: () => void
+    onImportProject: () => void
+  }) {
+    const [showTable, setShowTable] = useState(false)
+    const sharedActions = createProjectEntryActions({
+      onCreateProject,
+      onImportProject,
+    })
+
+    return (
+      <div>
+        <button data-testid="toggle-view" onClick={() => setShowTable((value) => !value)}>
+          Toggle View
+        </button>
+        {showTable ? (
+          <ProjectTable projects={testProjectRows} entryActions={sharedActions} />
+        ) : (
+          <EmptyState entryActions={sharedActions} />
+        )}
+      </div>
+    )
+  }
+
+  it("uses the same parent-supplied callbacks in empty and table-footer views", () => {
+    const onCreateProject = vi.fn()
+    const onImportProject = vi.fn()
+
+    render(
+      <SharedActionParityHarness
+        onCreateProject={onCreateProject}
+        onImportProject={onImportProject}
+      />
+    )
+
+    fireEvent.click(screen.getByRole("button", { name: /create project/i }))
+    fireEvent.click(screen.getByRole("button", { name: /import project/i }))
+    expect(onCreateProject).toHaveBeenCalledTimes(1)
+    expect(onImportProject).toHaveBeenCalledTimes(1)
+
+    fireEvent.click(screen.getByTestId("toggle-view"))
+
+    fireEvent.click(screen.getByRole("button", { name: /create project/i }))
+    fireEvent.click(screen.getByRole("button", { name: /import project/i }))
+    expect(onCreateProject).toHaveBeenCalledTimes(2)
+    expect(onImportProject).toHaveBeenCalledTimes(2)
   })
 })

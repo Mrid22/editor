@@ -4,13 +4,15 @@ import userEvent from "@testing-library/user-event"
 import { EmptyState } from "@/components/empty-state"
 import { ProjectTable } from "@/components/project-table"
 import type { ProjectRow } from "@/lib/project-table-types"
-import { testProjectRows } from "../fixtures/project-table-dummy-data"
+import { longProjectRows, testProjectRows } from "../fixtures/project-table-dummy-data"
+import { createEntryActionSpies } from "../fixtures/project-entry-actions"
 
 function TestHomepage({ projects }: { projects: ProjectRow[] }) {
+  const { actions } = createEntryActionSpies()
   return projects.length === 0 ? (
-    <EmptyState />
+    <EmptyState entryActions={actions} />
   ) : (
-    <ProjectTable projects={projects} />
+    <ProjectTable projects={projects} entryActions={actions} />
   )
 }
 
@@ -21,6 +23,9 @@ describe("Homepage project table conditional rendering", () => {
     expect(screen.getByRole("table")).toBeInTheDocument()
     expect(screen.getByText("Website Replatform")).toBeInTheDocument()
     expect(screen.queryByText("No projects yet")).not.toBeInTheDocument()
+    expect(screen.getByTestId("project-table-footer")).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /create project/i })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /import project/i })).toBeInTheDocument()
   })
 
   it("shows empty fallback when project list is empty", () => {
@@ -66,5 +71,13 @@ describe("Homepage project table conditional rendering", () => {
     await waitFor(() => {
       expect(screen.queryByTestId("action-delete")).not.toBeInTheDocument()
     })
+  })
+
+  it("keeps footer sticky in a long list container", () => {
+    render(<TestHomepage projects={longProjectRows} />)
+
+    const footer = screen.getByTestId("project-table-footer")
+    expect(footer.className).toContain("sticky")
+    expect(footer.className).toContain("bottom-0")
   })
 })

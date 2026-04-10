@@ -1,6 +1,10 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { ProjectEntryActions } from "@/components/project-entry-actions"
+import {
+  createProjectEntryActions,
+  type ProjectEntryAction,
+} from "@/lib/project-entry-actions"
 
 /**
  * EmptyStateProps interface for customizing the empty state display.
@@ -19,6 +23,8 @@ export interface EmptyStateProps {
   onPrimaryClick?: () => void
   /** Optional callback when secondary button is clicked */
   onSecondaryClick?: () => void
+  /** Optional pre-built shared actions from parent state */
+  entryActions?: ProjectEntryAction[]
 }
 
 /**
@@ -48,7 +54,25 @@ export function EmptyState({
   secondaryButtonLabel = "Import Project",
   onPrimaryClick,
   onSecondaryClick,
+  entryActions,
 }: EmptyStateProps) {
+  const actions =
+    entryActions ??
+    createProjectEntryActions({
+      onCreateProject: onPrimaryClick ?? (() => {}),
+      onImportProject: onSecondaryClick ?? (() => {}),
+    }).map((action) => {
+      if (action.id === "create-project") {
+        return { ...action, label: primaryButtonLabel }
+      }
+
+      if (action.id === "import-project") {
+        return { ...action, label: secondaryButtonLabel }
+      }
+
+      return action
+    })
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="text-center space-y-6 px-4">
@@ -58,28 +82,10 @@ export function EmptyState({
           <p className="text-muted-foreground text-base">{description}</p>
         </div>
 
-        {/* Action buttons - responsive layout: stack on mobile, row on desktop */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          {/* Primary button (Create Project) */}
-          <Button
-            variant="default"
-            onClick={onPrimaryClick}
-            className="sm:w-auto"
-            data-variant="default"
-          >
-            {primaryButtonLabel}
-          </Button>
-
-          {/* Secondary button (Import Project) */}
-          <Button
-            variant="secondary"
-            onClick={onSecondaryClick}
-            className="sm:w-auto"
-            data-variant="secondary"
-          >
-            {secondaryButtonLabel}
-          </Button>
-        </div>
+        <ProjectEntryActions
+          actions={actions}
+          className="flex-col sm:flex-row"
+        />
       </div>
     </div>
   )

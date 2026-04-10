@@ -20,3 +20,11 @@ export const testProjectRows: ProjectRow[] = [
     createdAt: "invalid-date",
   },
 ]
+
+// Long-list fixture used to validate sticky footer behavior in tall table containers.
+export const longProjectRows: ProjectRow[] = Array.from({ length: 20 }, (_, index) => ({
+  id: `lp-${index + 1}`,
+  name: `Large Project ${index + 1}`,
+  path: `~/Coding/Workspace/Large/Project/${index + 1}`,
+  createdAt: "2026-04-01T12:00:00Z",
+}))

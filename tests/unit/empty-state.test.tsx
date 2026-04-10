@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { EmptyState } from "@/components/empty-state"
+import { createEntryActionSpies } from "../fixtures/project-entry-actions"
 
 describe("EmptyState Component", () => {
   describe("T002: Render with default props", () => {
@@ -130,6 +131,23 @@ describe("EmptyState Component", () => {
       const primaryClass = primaryButton.className
       const secondaryClass = secondaryButton.className
       expect(primaryClass).not.toEqual(secondaryClass)
+    })
+  })
+
+  describe("Shared action renderer parity", () => {
+    it("renders action buttons from shared action source", () => {
+      const { actions } = createEntryActionSpies()
+      render(<EmptyState entryActions={actions} />)
+
+      expect(screen.getByTestId("project-entry-actions")).toBeInTheDocument()
+      expect(screen.getByRole("button", { name: /create project/i })).toHaveAttribute(
+        "data-action-id",
+        "create-project"
+      )
+      expect(screen.getByRole("button", { name: /import project/i })).toHaveAttribute(
+        "data-action-id",
+        "import-project"
+      )
     })
   })
 

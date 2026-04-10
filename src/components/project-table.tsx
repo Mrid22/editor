@@ -1,6 +1,7 @@
 import React from "react"
 import { MoreHorizontal } from "lucide-react"
 import type { ProjectRow, ProjectAction, ActionCellProps } from "@/lib/project-table-types"
+import type { ProjectEntryAction } from "@/lib/project-entry-actions"
 import {
   Table,
   TableBody,
@@ -16,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { ProjectEntryActions } from "@/components/project-entry-actions"
 import {
   formatDateYYYYMMDD,
   formatPathSuffix,
@@ -23,6 +25,7 @@ import {
 
 interface ProjectTableProps {
   projects: ProjectRow[]
+  entryActions: ProjectEntryAction[]
 }
 
 /**
@@ -75,7 +78,7 @@ export function ActionCell({ projectId, onAction }: ActionCellProps) {
   )
 }
 
-export function ProjectTable({ projects }: ProjectTableProps) {
+export function ProjectTable({ projects, entryActions }: ProjectTableProps) {
   // Handler for action selection (currently logs; future implementation will add functionality)
   const handleActionClick = (action: ProjectAction, projectId: string) => {
     console.log(`Action '${action}' selected for project '${projectId}'`)
@@ -85,31 +88,41 @@ export function ProjectTable({ projects }: ProjectTableProps) {
   return (
     <div className="min-h-screen flex items-center">
       <div className="w-full p-4 sm:p-6">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Project Name</TableHead>
-              <TableHead>Path</TableHead>
-              <TableHead>Date Created</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {projects.map((project) => (
-              <TableRow key={project.id} data-testid={`project-row-${project.id}`}>
-                <TableCell className="font-medium">{project.name}</TableCell>
-                <TableCell title={project.path}>{formatPathSuffix(project.path)}</TableCell>
-                <TableCell>{formatDateYYYYMMDD(project.createdAt)}</TableCell>
-                <TableCell>
-                  <ActionCell
-                    projectId={project.id}
-                    onAction={handleActionClick}
-                  />
-                </TableCell>
+        <div className="max-h-[70vh] overflow-y-auto rounded-lg border" data-testid="project-table-container">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Project Name</TableHead>
+                <TableHead>Path</TableHead>
+                <TableHead>Date Created</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {projects.map((project) => (
+                <TableRow key={project.id} data-testid={`project-row-${project.id}`}>
+                  <TableCell className="font-medium">{project.name}</TableCell>
+                  <TableCell title={project.path}>{formatPathSuffix(project.path)}</TableCell>
+                  <TableCell>{formatDateYYYYMMDD(project.createdAt)}</TableCell>
+                  <TableCell>
+                    <ActionCell
+                      projectId={project.id}
+                      onAction={handleActionClick}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          {/* Sticky footer keeps shared entry actions available during long list scroll. */}
+          <div
+            className="sticky bottom-0 border-t bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+            data-testid="project-table-footer"
+          >
+            <ProjectEntryActions actions={entryActions} />
+          </div>
+        </div>
       </div>
     </div>
   )
