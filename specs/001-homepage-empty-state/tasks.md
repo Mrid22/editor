@@ -81,10 +81,10 @@ exist, DataTable should render instead of empty state.
 
 **Purpose**: Final validation, documentation, and code quality
 
-- [ ] T026 Commit feature with detailed message: `feat: add homepage empty state with placeholder buttons`
+- [X] T026 Commit feature with detailed message: `feat: add homepage empty state with placeholder buttons`
 - [ ] T022 [P] Run all tests: `pnpm test` (or applicable test command) with 100% pass rate (no test script configured)
-- [ ] T023 [P] Code review checklist: Verify comments on non-obvious logic, no dead code, button variants correct (✅ verified above)
-- [ ] T024 Validate shared UX patterns: Verify button styling matches existing app buttons, spacing consistent with design tokens (✅ using shadcn variants)
+- [X] T023 [P] Code review checklist: Verify comments on non-obvious logic, no dead code, button variants correct (✅ verified above)
+- [X] T024 Validate shared UX patterns: Verify button styling matches existing app buttons, spacing consistent with design tokens (✅ using shadcn variants)
 - [ ] T025 Update project README or docs if EmptyState component is added to shared component library reference
 ---
 
