@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { useState } from "react"
 import { EmptyState } from "@/components/empty-state"
 
@@ -129,7 +129,7 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
 
       // Add a project
       const addBtn = screen.getByTestId("add-project-btn")
-      addBtn.click()
+      fireEvent.click(addBtn)
 
       // Verify DataTable shown, EmptyState hidden
       expect(
@@ -154,7 +154,7 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
 
       // Clear projects
       const clearBtn = screen.getByTestId("clear-projects-btn")
-      clearBtn.click()
+      fireEvent.click(clearBtn)
 
       // Verify EmptyState shown, DataTable hidden
       expect(screen.getByText("No projects yet")).toBeInTheDocument()
@@ -168,22 +168,22 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
       const clearBtn = screen.getByTestId("clear-projects-btn")
 
       // Empty → Populated
-      addBtn.click()
+      fireEvent.click(addBtn)
       expect(screen.getByTestId("data-table")).toBeInTheDocument()
 
       // Populated → Empty
-      clearBtn.click()
+      fireEvent.click(clearBtn)
       expect(screen.getByText("No projects yet")).toBeInTheDocument()
 
       // Empty → Populated again
-      addBtn.click()
+      fireEvent.click(addBtn)
       expect(screen.getByTestId("data-table")).toBeInTheDocument()
 
       // Should not crash or show errors
       expect(() => {
-        clearBtn.click()
-        addBtn.click()
-        clearBtn.click()
+        fireEvent.click(clearBtn)
+        fireEvent.click(addBtn)
+        fireEvent.click(clearBtn)
       }).not.toThrow()
     })
 
@@ -197,11 +197,11 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
       expect(screen.getByText("No projects yet")).toBeInTheDocument()
 
       // Add project
-      addBtn.click()
+      fireEvent.click(addBtn)
       expect(screen.getByText(/Table with 1 items/)).toBeInTheDocument()
 
       // Clear
-      clearBtn.click()
+      fireEvent.click(clearBtn)
       expect(screen.getByText("No projects yet")).toBeInTheDocument()
       expect(
         screen.queryByText(/Table with/)
@@ -217,7 +217,7 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
       addBtn.focus()
       expect(document.activeElement).toBe(addBtn)
 
-      addBtn.click()
+      fireEvent.click(addBtn)
 
       // Focus should remain accessible
       expect(document.activeElement).toBeTruthy()
@@ -231,12 +231,12 @@ describe("T005-T006: Homepage Empty State Conditional Rendering", () => {
       expect(emptyStateTitle).toBeVisible()
 
       // Switch to populated
-      screen.getByTestId("add-project-btn").click()
+      fireEvent.click(screen.getByTestId("add-project-btn"))
       const datatable = screen.getByTestId("data-table")
       expect(datatable).toBeVisible()
 
       // Switch back
-      screen.getByTestId("clear-projects-btn").click()
+      fireEvent.click(screen.getByTestId("clear-projects-btn"))
       expect(screen.getByText("No projects yet")).toBeVisible()
     })
   })
