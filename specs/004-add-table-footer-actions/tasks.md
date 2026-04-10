@@ -114,7 +114,7 @@
 - [x] T037 Review for dead code/unnecessary imports after action sharing refactor in `src/components/empty-state.tsx`
 - [x] T038 Review for dead code/unnecessary imports after footer integration in `src/components/project-table.tsx`
 - [x] T039 Final consistency pass against spec FR-001..FR-007 and SC-001..SC-006 in `specs/004-add-table-footer-actions/spec.md`
-- [ ] T040 Commit feature implementation and task completion summary referencing `specs/004-add-table-footer-actions/spec.md` and `specs/004-add-table-footer-actions/tasks.md`
+- [x] T040 Commit feature implementation and task completion summary referencing `specs/004-add-table-footer-actions/spec.md` and `specs/004-add-table-footer-actions/tasks.md`
 
 ---
 
