@@ -11,6 +11,8 @@
   IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
   Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
   you should still have a viable MVP (Minimum Viable Product) that delivers value.
+  Each story must identify the automated coverage it requires and any manual UX validation
+  needed when the change is user-facing.
   
   Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
   Think of each story as a standalone slice of functionality that can be:
@@ -95,6 +97,17 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Quality & Experience Requirements
+
+- **QR-001**: The feature MUST preserve established shared UI patterns, copy tone,
+  accessibility behavior, and error-state handling unless an explicit exception is approved.
+- **QR-002**: The feature MUST define the automated tests required to prove the changed
+  behavior and identify any manual verification needed for critical user-facing flows.
+- **QR-003**: The feature MUST state measurable performance expectations for affected flows,
+  such as interaction latency, render cost, startup work, or native bridge overhead.
+- **QR-004**: The implementation MUST add concise explanatory comments anywhere new logic is
+  complex enough that intent would not be obvious during review.
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]
@@ -113,6 +126,8 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- **SC-005**: [Quality metric, e.g., "All affected automated tests pass and new regression coverage exists for the changed behavior"]
+- **SC-006**: [UX/performance metric, e.g., "Primary interaction completes within 100 ms p95 and matches shared UI behavior on desktop and narrow layouts"]
 
 ## Assumptions
 

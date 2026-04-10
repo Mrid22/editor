@@ -31,7 +31,18 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Code quality scope is explicit: affected modules, invariants, failure modes, and cleanup
+  of duplicated or dead paths are identified.
+- Readability is preserved: naming, structure, and any non-obvious logic comments required
+  by the change are called out before implementation.
+- Module boundaries are respected: UI, state, data access, and native integrations have
+  clear ownership and interface seams.
+- Test strategy is defined: the plan names the automated tests to add or update and any
+  scripted manual validation required for critical user journeys.
+- UX consistency is defined: shared components, design tokens, accessibility states, and
+  interaction patterns affected by the feature are identified.
+- Performance expectations are measurable: the plan states budgets or target thresholds for
+  the impacted flow and how they will be verified.
 
 ## Project Structure
 
